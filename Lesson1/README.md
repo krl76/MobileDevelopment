@@ -60,7 +60,7 @@
 Был создан файл table_layout.xml. Для равномерного распределения колонок использован атрибут корневого тега android:stretchColumns="*". Для объединения ячеек во второй строке применен атрибут android:layout_span="2".
 
 **Листинг res/layout/table_layout.xml:**
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -101,7 +101,7 @@
 
 **Листинг MainActivity.kt:**
 
-```
+```Kotlin
 package ru.mirea.lesson1.controllesson1
 
 import android.os.Bundle
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
 
 **Листинг MainActivity.kt:**
 
-```
+```Kotlin
 package ru.mirea.lesson1.buttonclicker
 
 import android.os.Bundle
