@@ -24,15 +24,13 @@ class MainActivity : AppCompatActivity() {
         checkBox = findViewById(R.id.checkBox)
 
         btnWhoAmI.setOnClickListener {
-            tvOut.text = "Мой номер по списку № 14"
+            tvOut.text = "Мой номер по списку № 13"
             checkBox.isChecked = true
         }
     }
 
     fun onMyButtonClick(view: View) {
-        // Меняем текст
         tvOut.text = "Это не я сделал"
-        // Меняем состояние чекбокса (снимаем галочку)
         checkBox.isChecked = false
     }
 }
