@@ -30,5 +30,10 @@
             android:id="@+id/nav_data"
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="Информация" />
+
+        <item
+            android:id="@+id/nav_worker"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Фоновая работа" />
     </group>
 </menu>

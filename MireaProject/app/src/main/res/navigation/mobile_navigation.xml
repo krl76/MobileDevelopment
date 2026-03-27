@@ -39,4 +39,10 @@
         android:name="ru.mirea.kornilovku.mireaproject.ui.webview.WebViewFragment"
         android:label="Браузер"
         tools:layout="@layout/fragment_web_view" />
+
+    <fragment
+        android:id="@+id/nav_worker"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.webview.WebViewFragment"
+        android:label="Фоновая работа"
+        tools:layout="@layout/fragment_web_view" />
 </navigation>

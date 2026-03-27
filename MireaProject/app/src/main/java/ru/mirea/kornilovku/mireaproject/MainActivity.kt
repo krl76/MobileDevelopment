@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
                     R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings,
-                    R.id.nav_data, R.id.nav_webview
+                    R.id.nav_data, R.id.nav_webview, R.id.nav_worker
                 ),
                 binding.drawerLayout
             )
@@ -60,12 +60,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val result = super.onCreateOptionsMenu(menu)
-        // Using findViewById because NavigationView exists in different layout files
-        // between w600dp and w1240dp
         val navView: NavigationView? = findViewById(R.id.nav_view)
         if (navView == null) {
-            // The navigation drawer already has the items including the items in the overflow menu
-            // We only inflate the overflow menu if the navigation drawer isn't visible
             menuInflater.inflate(R.menu.overflow, menu)
         }
         return result
@@ -79,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.nav_settings)
                 return true
             }
-            // ДОБАВЬТЕ ЭТИ СТРОКИ:
             R.id.nav_data -> {
                 navController.navigate(R.id.nav_data)
                 return true
