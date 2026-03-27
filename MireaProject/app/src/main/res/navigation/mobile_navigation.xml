@@ -45,4 +45,22 @@
         android:name="ru.mirea.kornilovku.mireaproject.ui.webview.WebViewFragment"
         android:label="Фоновая работа"
         tools:layout="@layout/fragment_web_view" />
+
+    <fragment
+        android:id="@+id/nav_sensor"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.SensorFragment"
+        android:label="Датчик положения"
+        tools:layout="@layout/fragment_sensor" />
+
+    <fragment
+        android:id="@+id/nav_camera"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.CameraFragment"
+        android:label="Фото-заметка"
+        tools:layout="@layout/fragment_camera" />
+
+    <fragment
+        android:id="@+id/nav_audio"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.AudioFragment"
+        android:label="Голосовая заметка"
+        tools:layout="@layout/fragment_audio" />
 </navigation>
