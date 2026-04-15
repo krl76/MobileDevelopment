@@ -107,6 +107,10 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.nav_files)
                 return true
             }
+            R.id.nav_network -> {
+                navController.navigate(R.id.nav_network)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

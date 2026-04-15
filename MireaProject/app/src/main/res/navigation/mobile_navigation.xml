@@ -75,4 +75,10 @@
         android:name="ru.mirea.kornilovku.mireaproject.ui.FilesFragment"
         android:label="Работа с файлами"
         tools:layout="@layout/fragment_files" />
+
+    <fragment
+        android:id="@+id/nav_network"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.NetworkFragment"
+        android:label="Сетевые данные"
+        tools:layout="@layout/fragment_network" />
 </navigation>
