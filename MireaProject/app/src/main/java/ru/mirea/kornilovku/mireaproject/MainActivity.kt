@@ -83,6 +83,30 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.nav_webview)
                 return true
             }
+            R.id.nav_worker -> {
+                navController.navigate(R.id.nav_worker)
+                return true
+            }
+            R.id.nav_sensor -> {
+                navController.navigate(R.id.nav_sensor)
+                return true
+            }
+            R.id.nav_camera -> {
+                navController.navigate(R.id.nav_camera)
+                return true
+            }
+            R.id.nav_audio -> {
+                navController.navigate(R.id.nav_audio)
+                return true
+            }
+            R.id.nav_profile -> {
+                navController.navigate(R.id.nav_profile)
+                return true
+            }
+            R.id.nav_files -> {
+                navController.navigate(R.id.nav_files)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

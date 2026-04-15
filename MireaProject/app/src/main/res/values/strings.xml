@@ -27,4 +27,6 @@
     <string name="menu_sensor">Датчик положения</string>
     <string name="menu_camera">Фото-заметка</string>
     <string name="menu_audio">Голосовая заметка</string>
+    <string name="menu_profile">Профиль</string>
+    <string name="menu_files">Работа с файлами</string>
 </resources>

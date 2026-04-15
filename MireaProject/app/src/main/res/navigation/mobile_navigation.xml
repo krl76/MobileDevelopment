@@ -63,4 +63,16 @@
         android:name="ru.mirea.kornilovku.mireaproject.ui.AudioFragment"
         android:label="Голосовая заметка"
         tools:layout="@layout/fragment_audio" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.ProfileFragment"
+        android:label="Профиль"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_files"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.FilesFragment"
+        android:label="Работа с файлами"
+        tools:layout="@layout/fragment_files" />
 </navigation>
