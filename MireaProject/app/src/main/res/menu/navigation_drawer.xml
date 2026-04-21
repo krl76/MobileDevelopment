@@ -65,5 +65,10 @@
             android:id="@+id/nav_network"
             android:icon="@android:drawable/ic_menu_info_details"
             android:title="Сетевые данные" />
+
+        <item
+            android:id="@+id/nav_places"
+            android:icon="@android:drawable/ic_menu_mapmode"
+            android:title="Заведения" />
     </group>
 </menu>
