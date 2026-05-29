@@ -3,6 +3,7 @@ package ru.mirea.kornilovku.mireaproject
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -12,6 +13,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import ru.mirea.kornilovku.mireaproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             navigationView.setupWithNavController(navController)
+
+            updateNavHeader(navigationView)
         }
 
         binding.appBarMain.contentMain.bottomNavView?.let { bottomNavView ->
@@ -66,6 +70,26 @@ class MainActivity : AppCompatActivity() {
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             bottomNavView.setupWithNavController(navController)
+        }
+    }
+
+    private fun updateNavHeader(navigationView: NavigationView) {
+        val headerView = navigationView.getHeaderView(0)
+        val textViewNavName = headerView.findViewById<TextView>(R.id.textViewNavName)
+        val textViewNavEmail = headerView.findViewById<TextView>(R.id.textViewNavEmail)
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val displayName = currentUser.displayName
+            if (!displayName.isNullOrBlank()) {
+                textViewNavName.text = displayName
+            } else {
+                textViewNavName.text = "Пользователь"
+            }
+            textViewNavEmail.text = currentUser.email ?: "email не указан"
+        } else {
+            textViewNavName.text = "MireaProject"
+            textViewNavEmail.text = "войдите в аккаунт"
         }
     }
 

@@ -28,7 +28,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Пока нет сохранённых записей"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/buttonClearNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Очистить все записи" />
 
         </LinearLayout>
     </ScrollView>

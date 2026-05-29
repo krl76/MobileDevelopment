@@ -36,15 +36,15 @@
 
     <fragment
         android:id="@+id/nav_webview"
-        android:name="ru.mirea.kornilovku.mireaproject.ui.webview.WebViewFragment"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.WebViewFragment"
         android:label="Браузер"
         tools:layout="@layout/fragment_web_view" />
 
     <fragment
         android:id="@+id/nav_worker"
-        android:name="ru.mirea.kornilovku.mireaproject.ui.webview.WebViewFragment"
+        android:name="ru.mirea.kornilovku.mireaproject.ui.WorkerFragment"
         android:label="Фоновая работа"
-        tools:layout="@layout/fragment_web_view" />
+        tools:layout="@layout/fragment_worker" />
 
     <fragment
         android:id="@+id/nav_sensor"

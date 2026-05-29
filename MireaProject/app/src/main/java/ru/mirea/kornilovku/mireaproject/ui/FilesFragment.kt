@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -18,19 +19,26 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
 
     private lateinit var textViewNotes: TextView
     private lateinit var fabAddNote: FloatingActionButton
+    private lateinit var buttonClearNotes: Button
 
-    private val fileName = "notes.txt"
+    private val fileName = "encrypted_notes.txt"
+    private val cipherKey = "kku13bsbo0923"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         textViewNotes = view.findViewById(R.id.textViewNotes)
         fabAddNote = view.findViewById(R.id.fabAddNote)
+        buttonClearNotes = view.findViewById(R.id.buttonClearNotes)
 
         loadNotesFromFile()
 
         fabAddNote.setOnClickListener {
             showAddNoteDialog()
+        }
+
+        buttonClearNotes.setOnClickListener {
+            showClearConfirmation()
         }
     }
 
@@ -57,17 +65,24 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
 
     private fun saveNoteToFile(note: String) {
         try {
+            val encryptedNote = xorCipher(note, cipherKey)
             val outputStream: FileOutputStream =
                 requireActivity().openFileOutput(fileName, Context.MODE_APPEND)
 
-            outputStream.write((note + "\n").toByteArray())
+            outputStream.write((encryptedNote + "\n").toByteArray())
             outputStream.close()
 
-            Toast.makeText(requireContext(), "Запись сохранена", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Запись сохранена (зашифрована)", Toast.LENGTH_SHORT).show()
         } catch (e: IOException) {
             e.printStackTrace()
             Toast.makeText(requireContext(), "Ошибка записи файла", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun xorCipher(input: String, key: String): String {
+        return input.indices.map { i ->
+            (input[i].code xor key[i % key.length].code).toChar()
+        }.joinToString("")
     }
 
     private fun loadNotesFromFile() {
@@ -77,12 +92,17 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
             fileInputStream = requireActivity().openFileInput(fileName)
             val bytes = ByteArray(fileInputStream.available())
             fileInputStream.read(bytes)
-            val text = String(bytes)
+            val encryptedText = String(bytes)
 
-            textViewNotes.text = if (text.isBlank()) {
+            val decryptedLines = encryptedText
+                .lines()
+                .filter { it.isNotBlank() }
+                .map { xorCipher(it, cipherKey) }
+
+            textViewNotes.text = if (decryptedLines.isEmpty()) {
                 "Пока нет сохранённых записей"
             } else {
-                text
+                decryptedLines.joinToString("\n")
             }
         } catch (e: IOException) {
             textViewNotes.text = "Пока нет сохранённых записей"
@@ -94,17 +114,26 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
         }
     }
 
+    private fun showClearConfirmation() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Очистить записи")
+            .setMessage("Все сохранённые записи будут удалены. Продолжить?")
+            .setPositiveButton("Удалить") { _, _ ->
+                requireActivity().deleteFile(fileName)
+                textViewNotes.text = "Пока нет сохранённых записей"
+                Toast.makeText(requireContext(), "Записи удалены", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Отмена", null)
+            .show()
+    }
+
     override fun onResume() {
         super.onResume()
-        requireActivity().findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
-            R.id.fab
-        )?.hide()
+        requireActivity().findViewById<FloatingActionButton>(R.id.fab)?.hide()
     }
 
     override fun onPause() {
         super.onPause()
-        requireActivity().findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(
-            R.id.fab
-        )?.show()
+        requireActivity().findViewById<FloatingActionButton>(R.id.fab)?.show()
     }
 }
