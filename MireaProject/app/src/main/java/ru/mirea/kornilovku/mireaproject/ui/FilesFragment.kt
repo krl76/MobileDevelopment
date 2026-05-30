@@ -14,6 +14,7 @@ import ru.mirea.kornilovku.mireaproject.R
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.Base64
 
 class FilesFragment : Fragment(R.layout.fragment_files) {
 
@@ -66,10 +67,11 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
     private fun saveNoteToFile(note: String) {
         try {
             val encryptedNote = xorCipher(note, cipherKey)
+            val base64Note = Base64.getEncoder().encodeToString(encryptedNote.toByteArray())
             val outputStream: FileOutputStream =
                 requireActivity().openFileOutput(fileName, Context.MODE_APPEND)
 
-            outputStream.write((encryptedNote + "\n").toByteArray())
+            outputStream.write((base64Note + "\n").toByteArray())
             outputStream.close()
 
             Toast.makeText(requireContext(), "Запись сохранена (зашифрована)", Toast.LENGTH_SHORT).show()
@@ -92,12 +94,19 @@ class FilesFragment : Fragment(R.layout.fragment_files) {
             fileInputStream = requireActivity().openFileInput(fileName)
             val bytes = ByteArray(fileInputStream.available())
             fileInputStream.read(bytes)
-            val encryptedText = String(bytes)
+            val fileContent = String(bytes)
 
-            val decryptedLines = encryptedText
+            val decryptedLines = fileContent
                 .lines()
                 .filter { it.isNotBlank() }
-                .map { xorCipher(it, cipherKey) }
+                .map { base64Line ->
+                    try {
+                        val decodedBytes = Base64.getDecoder().decode(base64Line)
+                        xorCipher(String(decodedBytes), cipherKey)
+                    } catch (e: IllegalArgumentException) {
+                        "Ошибка: файл повреждён, очистите записи"
+                    }
+                }
 
             textViewNotes.text = if (decryptedLines.isEmpty()) {
                 "Пока нет сохранённых записей"
